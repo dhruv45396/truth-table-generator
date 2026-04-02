@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Truth Table Generator</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Truth Table Generator</h1>
+
+    <p style="color:red;" th:text="${error}"></p>
+
+    <form action="/generate" method="post">
+        <input type="text" name="expression"
+               placeholder="Example: (P ∧ Q) → R">
+        <br><br>
+        <button type="submit">Generate</button>
+    </form>
+
+    <p>Use symbols: ∧ (AND), ∨ (OR), ¬ (NOT), → (IMPLIES), ↔ (BICONDITIONAL)</p>
+
+    <br>
+    <button onclick="toggleDarkMode()">🌙 Toggle Mode</button>
+
+</div>
+
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark");
+    }
+</script>
+
+</body>
+</html>

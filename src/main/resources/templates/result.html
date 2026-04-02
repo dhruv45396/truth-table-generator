@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Truth Table</h1>
+
+    <p><b>Expression:</b> <span th:text="${expression}"></span></p>
+
+    <p><b>Postfix:</b> <span th:text="${postfix}"></span></p>
+
+    <button onclick="copyTable()">📋 Copy Table</button>
+    <button onclick="toggleDarkMode()">🌙 Toggle Mode</button>
+
+    <table>
+        <tr>
+            <th th:each="v : ${vars}" th:text="${v}"></th>
+            <th class="result-col">Result</th>
+        </tr>
+
+        <tr th:each="row, i : ${table}">
+            <td th:each="val : ${row}"
+                th:text="${val} ? 'T' : 'F'"
+                th:class="${val} ? 'true' : 'false'">
+            </td>
+
+            <td th:text="${results[i.index]}"
+                class="result-col"
+                th:classappend="${results[i.index]} == 'T' ? ' true' : ' false'">
+            </td>
+        </tr>
+    </table>
+
+    <!-- 🔥 SUMMARY -->
+    <div class="summary">
+        <p><b>Total Variables:</b> <span th:text="${vars.size()}"></span></p>
+        <p><b>Total Rows:</b> <span th:text="${table.size()}"></span></p>
+    </div>
+
+</div>
+
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark");
+    }
+
+    function copyTable() {
+        let table = document.querySelector("table");
+        let range = document.createRange();
+        range.selectNode(table);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        alert("Table copied!");
+    }
+</script>
+
+</body>
+</html>
